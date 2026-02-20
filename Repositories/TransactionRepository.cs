@@ -18,12 +18,19 @@ namespace WebAppFinanceiro.Repositories
 
         public Task<int> AddAsync(Transaction t)
         {
-            throw new NotImplementedException();
+            using var conn = CreateConnection();
+            var sql = @"INSERT INTO Transactions (Type, CategoryId, Description, Amount, Date)
+                        VALUES (@Type, @CategoryId, @Description, @Amount, @Date)";
+
+            return conn.ExecuteAsync(sql,  t);
         }
 
         public Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            using var conn = CreateConnection();
+            var sql = "SELECT * FROM Transactions WHERE Id = @Id";
+
+            return conn.ExecuteAsync(sql, new { Id = id });
         }
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
@@ -44,7 +51,16 @@ namespace WebAppFinanceiro.Repositories
 
         public Task<int> UpdateAsync(Transaction t)
         {
-            throw new NotImplementedException();
+            using var conn = CreateConnection();
+            var sql = @"UPDATE Transactions SET
+                        Type = @Type,
+                        CategoryId = @CategoryId,
+                        Description = @Description,
+                        Amount = @Amount,
+                        Date = @Date
+                        WHERE Id = @Id";
+
+            return conn.ExecuteAsync(sql, t);
         }
     }
 }
