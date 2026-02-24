@@ -12,8 +12,8 @@ Aplicação WebApiFinanças
 
 ## Linguagem C#
 
-	#### C#
-	-	É uma linguagem de programação moderna, orientada a objetos e de tipagem forte, desenvolvida 
-	pela Microsoft como parte da plataforma .NET. É de código aberto, amplamente utilizada para desenvolver 
-	aplicativos web, desktop, móveis e jogos, destacando-se pela alta produtividade, segurança de tipo e 
-	uso de Garbage Collector para gerenciamento automático de memória.
+#### C#
+-	É uma linguagem de programação moderna, orientada a objetos e de tipagem forte, desenvolvida pela 
+Microsoft como parte da plataforma .NET. É de código aberto, amplamente utilizada para desenvolver 
+aplicativos web, desktop, móveis e jogos, destacando-se pela alta produtividade, segurança de tipo e 
+uso de Garbage Collector para gerenciamento automático de memória.
