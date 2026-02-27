@@ -15,6 +15,16 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IFinanceService, FinanceService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost.4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

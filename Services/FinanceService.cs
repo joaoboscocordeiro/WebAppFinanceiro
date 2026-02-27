@@ -15,12 +15,12 @@ namespace WebAppFinanceiro.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task AddTransactionAsync(Transaction t)
+        public async Task<Transaction> AddTransactionAsync(Transaction t)
         {
             if (t.Amount <= 0) throw new ArgumentException("A quantidade precisa ser maior que zero", nameof(t.Amount));
             if (t.Type != 'R' && t.Type != 'D') throw new ArgumentException("O tipo precisa ser R (Receita) ou D (Despesa)", nameof(t.Type));
 
-            await _transactionRepository.AddAsync(t);
+            return await _transactionRepository.AddAsync(t);
         }
 
         public async Task DeleteTransactionAsync(int id)

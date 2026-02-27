@@ -46,7 +46,7 @@ namespace WebAppFinanceiro.Controllers
 
             try
             {
-                await _service.AddTransactionAsync(t);
+                var response = await _service.AddTransactionAsync(t);
                 return CreatedAtAction(nameof(GetById), new { id = t.Id }, t);
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace WebAppFinanceiro.Controllers
             try
             {
                 await _service.UpdateTransactionAsync(existing);
-                return NoContent();
+                return Ok(existing);
             }
             catch (Exception ex)
             {

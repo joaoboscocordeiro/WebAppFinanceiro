@@ -6,7 +6,7 @@ namespace WebAppFinanceiro.Repositories
     {
         Task<IEnumerable<Transaction>> GetAllAsync();
         Task<Transaction?> GetByIdAsync(int id);
-        Task<int> AddAsync(Transaction t);
+        Task<Transaction> AddAsync(Transaction t);
         Task<int> UpdateAsync(Transaction t);
         Task<int> DeleteAsync(int id);
     }

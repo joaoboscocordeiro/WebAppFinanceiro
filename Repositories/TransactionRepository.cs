@@ -16,13 +16,16 @@ namespace WebAppFinanceiro.Repositories
 
         private IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 
-        public Task<int> AddAsync(Transaction t)
+        public async Task<Transaction> AddAsync(Transaction t)
         {
             using var conn = CreateConnection();
             var sql = @"INSERT INTO Transactions (Type, CategoryId, Description, Amount, Date)
+                        OUTPUT INSERTED *
                         VALUES (@Type, @CategoryId, @Description, @Amount, @Date)";
 
-            return conn.ExecuteAsync(sql,  t);
+            var response = await conn.QuerySingleAsync<Transaction>(sql, t);
+
+            return response;
         }
 
         public Task<int> DeleteAsync(int id)
