@@ -28,12 +28,12 @@ namespace WebAppFinanceiro.Repositories
             return response;
         }
 
-        public Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             using var conn = CreateConnection();
             var sql = "SELECT * FROM Transactions WHERE Id = @Id";
 
-            return conn.ExecuteAsync(sql, new { Id = id });
+            return await conn.ExecuteAsync(sql, new { Id = id });
         }
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
@@ -52,7 +52,7 @@ namespace WebAppFinanceiro.Repositories
             return await conn.QueryFirstOrDefaultAsync<Transaction>(sql, new { Id = id });
         }
 
-        public Task<int> UpdateAsync(Transaction t)
+        public async Task<int> UpdateAsync(Transaction t)
         {
             using var conn = CreateConnection();
             var sql = @"UPDATE Transactions SET
@@ -63,7 +63,7 @@ namespace WebAppFinanceiro.Repositories
                         Date = @Date
                         WHERE Id = @Id";
 
-            return conn.ExecuteAsync(sql, t);
+            return await conn.ExecuteAsync(sql, t);
         }
     }
 }
