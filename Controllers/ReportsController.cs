@@ -63,7 +63,7 @@ namespace WebAppFinanceiro.Controllers
             foreach (var t in transactions)
             {
                 ws.Cell(row, 1).Value = t.Id;
-                ws.Cell(row, 2).Value = t.Type;
+                ws.Cell(row, 2).Value = t.Type.ToString();
                 ws.Cell(row, 3).Value = t.Amount;
                 ws.Cell(row, 4).Value = t.Date;
                 ws.Cell(row, 5).Value = t.CategoryId;
