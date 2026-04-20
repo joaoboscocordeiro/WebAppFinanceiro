@@ -20,7 +20,6 @@ namespace WebAppFinanceiro.Repositories
         {
             using var conn = CreateConnection();
             var sql = @"INSERT INTO Transactions (Type, CategoryId, Description, Amount, Date)
-                        OUTPUT INSERTED *
                         VALUES (@Type, @CategoryId, @Description, @Amount, @Date)";
 
             var response = await conn.QuerySingleAsync<Transaction>(sql, t);
@@ -31,8 +30,7 @@ namespace WebAppFinanceiro.Repositories
         public async Task<int> DeleteAsync(int id)
         {
             using var conn = CreateConnection();
-            var sql = "SELECT * FROM Transactions WHERE Id = @Id";
-
+            var sql = "DELETE FROM Transactions WHERE Id = @Id";
             return await conn.ExecuteAsync(sql, new { Id = id });
         }
 

@@ -46,8 +46,8 @@ namespace WebAppFinanceiro.Controllers
 
             try
             {
-                var response = await _service.AddTransactionAsync(t);
-                return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+                await _service.AddTransactionAsync(t);
+                return CreatedAtAction(nameof(GetById), new { id = t.Id }, t);
             }
             catch (Exception ex)
             {

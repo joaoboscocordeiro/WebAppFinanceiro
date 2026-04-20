@@ -7,7 +7,7 @@ namespace WebAppFinanceiro.Services
     {
         Task<IEnumerable<Transaction>> GetTransactionsAsync(int? month = null, int? year = null, char? type = null);
         Task<Transaction?> GetTransactionByIdAsync(int id);
-        Task<Transaction> AddTransactionAsync(Transaction t);
+        Task AddTransactionAsync(Transaction t);
         Task UpdateTransactionAsync(Transaction t);
         Task DeleteTransactionAsync(int id);
         Task<DashboardDto> GetDashboardAsync(int month, int year);

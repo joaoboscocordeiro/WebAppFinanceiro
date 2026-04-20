@@ -19,16 +19,14 @@ namespace WebAppFinanceiro.Repositories
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             using var conn = CreateConnection();
-            var sql = "SELECT * FROM Category";
-
+            var sql = "SELECT * FROM Categories";
             return await conn.QueryAsync<Category>(sql);
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int id)
         {
             using var conn = CreateConnection();
-            var sql = "SELECT * FROM Category WHERE Id = @Id";
-
+            var sql = "SELECT * FROM Categories WHERE Id = @Id";
             return await conn.QueryFirstOrDefaultAsync<Category>(sql, new { Id = id });
         }
     }

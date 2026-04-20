@@ -15,12 +15,12 @@ namespace WebAppFinanceiro.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<Transaction> AddTransactionAsync(Transaction t)
+        public async Task AddTransactionAsync(Transaction t)
         {
             if (t.Amount <= 0) throw new ArgumentException("A quantidade precisa ser maior que zero", nameof(t.Amount));
             if (t.Type != 'R' && t.Type != 'D') throw new ArgumentException("O tipo precisa ser R (Receita) ou D (Despesa)", nameof(t.Type));
 
-            return await _transactionRepository.AddAsync(t);
+            await _transactionRepository.AddAsync(t);
         }
 
         public async Task DeleteTransactionAsync(int id)
@@ -30,8 +30,12 @@ namespace WebAppFinanceiro.Services
 
         public async Task<DashboardDto> GetDashboardAsync(int month, int year)
         {
-            if (month < 1 || month > 9999) throw new ArgumentException("Mês inválido!", nameof(month));
-            if (year < 1 || year > 9999) throw new ArgumentException("Ano inválido", nameof(year));
+
+            if (month < 1 || month > 9999)
+                throw new ArgumentException("Mês inválido", nameof(month));
+            if (year < 1 || year > 9999)
+                throw new ArgumentException("Ano inválido", nameof(year));
+
 
             var all = (await _transactionRepository.GetAllAsync()).ToList();
 
@@ -42,16 +46,20 @@ namespace WebAppFinanceiro.Services
 
             IEnumerable<Transaction> anterior = Enumerable.Empty<Transaction>();
 
-            if (prevYear >= 1) anterior = all.Where(t => t.Date.Month == prevMonth && t.Date.Year == prevYear);
+            if (prevYear >= 1)
+                anterior = all.Where(t => t.Date.Month == prevMonth && t.Date.Year == prevYear);
+
 
             decimal receitas = atual.Where(t => t.Type == 'R').Sum(t => t.Amount);
             decimal despesas = atual.Where(t => t.Type == 'D').Sum(t => t.Amount);
             decimal saldo = receitas - despesas;
-            
-            decimal saldoAnterior = anterior.Any() ? anterior.Sum(t => t.Type == 'R' ? t.Amount : - t.Amount) : 0m;
+
+            decimal saldoAnterior = anterior.Any() ?
+                anterior.Sum(t => t.Type == 'R' ? t.Amount : -t.Amount) : 0m;
 
             decimal diferenca = saldo - saldoAnterior;
-            decimal percentual = saldoAnterior != 0 ? Math.Round((diferenca / Math.Abs(saldoAnterior)) * 100, 2) : (diferenca == 0 ? 0 : 100);
+            decimal percentual = saldoAnterior != 0 ?
+                Math.Round((diferenca / Math.Abs(saldoAnterior)) * 100, 2) : (diferenca == 0 ? 0 : 100);
 
             return new DashboardDto
             {
